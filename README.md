@@ -10,7 +10,7 @@
 
 ## 👥 EQUIPO DE DESARROLLO
 
-- **Yeison Andrés Vargas S.**
+- **Yeison Adrián Vargas S.**
 - **Liseth Yeraldin Nieto**
 - **Valentina Arias Salazar**
 
