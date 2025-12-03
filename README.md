@@ -84,70 +84,6 @@
 
 ---
 
-## 📚 DOCUMENTACIÓN
-
-### 📖 Guías Principales
-
-1. **[RESUMEN_EJECUTIVO.md](RESUMEN_EJECUTIVO.md)** 🌟 **¡EMPIEZA AQUÍ!**
-   - Visión general del proyecto
-   - Características principales
-   - Tecnologías utilizadas
-   - Próximos pasos
-
-2. **[DOCUMENTACION_PROYECTO_TDAH.md](DOCUMENTACION_PROYECTO_TDAH.md)**
-   - Análisis completo del proyecto
-   - Arquitectura y diseño
-   - Objetivos y alcance
-   - Buenas prácticas
-
-3. **[PLAN_IMPLEMENTACION.md](PLAN_IMPLEMENTACION.md)**
-   - Plan paso a paso
-   - Código de ejemplo
-   - Cronograma detallado
-   - Guía de desarrollo
-
-4. **[TODO.md](TODO.md)**
-   - Lista de tareas por fase
-   - Progreso del proyecto
-   - Checklist de funcionalidades
-   - Distribución del trabajo
-
-5. **[FAQ.md](FAQ.md)**
-   - Preguntas frecuentes
-   - Solución de problemas
-   - Consejos y tips
-   - Recursos útiles
-
----
-
-## 🚀 INICIO RÁPIDO
-
-### 1️⃣ Revisar Documentación (1-2 horas)
-```bash
-# Lee en este orden:
-1. README.md (este archivo)
-2. RESUMEN_EJECUTIVO.md
-3. PLAN_IMPLEMENTACION.md
-4. TODO.md
-```
-
-### 2️⃣ Configurar Entorno de Desarrollo
-```bash
-# Clonar o descargar el proyecto
-git clone [URL-del-repositorio]
-
-# Abrir con tu editor favorito
-code .  # VS Code
-```
-
-### 3️⃣ Comenzar a Desarrollar
-```bash
-# Abrir index.html en el navegador
-# O usar Live Server en VS Code
-```
-
----
-
 ## 📅 CRONOGRAMA
 
 ### Semana 1: Desarrollo Core (22-28 Nov)
@@ -212,28 +148,6 @@ Estos colores fueron seleccionados específicamente por sus propiedades calmante
 - 💻 Desktop (992px+)
 
 ---
-
-## 📦 INSTALACIÓN Y USO
-
-### Requisitos Previos
-- Navegador web moderno
-- Editor de código (VS Code recomendado)
-- Conocimientos básicos de HTML, CSS y JavaScript
-
-### Instalación
-```bash
-# 1. Clonar el repositorio
-git clone [URL-del-repositorio]
-
-# 2. Navegar al directorio
-cd PROYECTO-TDAH-APP
-
-# 3. Abrir con tu editor
-code .
-
-# 4. Abrir index.html en el navegador
-# O usar Live Server en VS Code
-```
 
 ### Uso
 1. Abre `index.html` en tu navegador
