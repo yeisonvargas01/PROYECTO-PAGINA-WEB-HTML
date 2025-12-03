@@ -11,7 +11,7 @@
 ## 👥 EQUIPO DE DESARROLLO
 
 - **Yeison Adrián Vargas S.**
-- **Liseth Yeraldin Nieto**
+- **Liset Yeraldin Nieto**
 - **Valentina Arias Salazar**
 
 **Curso**: Técnico en Herramientas para la Codificación de Software  
@@ -194,7 +194,7 @@ El proyecto será exitoso si:
 
 **Hecho con 💙 por el equipo FocusFlow**
 
-**Yeison • Liseth • Valentina**
+**Yeison • Liset • Valentina**
 
 ---
 
