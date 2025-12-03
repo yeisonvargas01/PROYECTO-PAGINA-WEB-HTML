@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tests de Concentración - FocusFlow</title>
+  <link rel="shortcut icon" href="./brain-favicon.svg" type="image/svg+xml">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #6C63FF;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .test-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .test-btn {
+      background: linear-gradient(135deg, #6C63FF, #4ECDC4);
+      color: white;
+      border: none;
+      padding: 20px;
+      border-radius: 15px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .test-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(108, 99, 255, 0.3);
+    }
+
+    .test-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .test-area {
+      display: none;
+      min-height: 400px;
+    }
+
+    .test-area.active {
+      display: block;
+    }
+
+    .timer {
+      background: #FFE66D;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .instructions {
+      background: #f0f0f0;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .start-btn, .next-btn, .finish-btn {
+      background: #6C63FF;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      transition: background 0.3s;
+    }
+
+    .start-btn:hover, .next-btn:hover, .finish-btn:hover {
+      background: #5a52d5;
+    }
+
+    /* Test de Memoria */
+    .memory-display {
+      font-size: 3rem;
+      text-align: center;
+      padding: 40px;
+      background: #f8f8f8;
+      border-radius: 10px;
+      margin: 20px 0;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .memory-input {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.5rem;
+      text-align: center;
+      border: 2px solid #6C63FF;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    /* Test de Atención */
+    .number-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .number-cell {
+      aspect-ratio: 1;
+      background: #f0f0f0;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .number-cell:hover {
+      background: #e0e0e0;
+      transform: scale(1.05);
+    }
+
+    .number-cell.correct {
+      background: #95E1D3;
+      border-color: #4ECDC4;
+    }
+
+    .number-cell.wrong {
+      background: #F38181;
+      border-color: #e74c3c;
+      animation: shake 0.5s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    /* Test de Velocidad */
+    .speed-area {
+      position: relative;
+      height: 400px;
+      background: #f8f8f8;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .target {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: #6C63FF;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      transition: transform 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .target:hover {
+      transform: scale(1.1);
+    }
+
+    .target.clicked {
+      animation: pop 0.3s;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(0); }
+    }
+
+    .score {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #6C63FF;
+      margin: 20px 0;
+    }
+
+    /* Resultados */
+    .results {
+      display: none;
+    }
+
+    .results.active {
+      display: block;
+    }
+
+    .result-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+
+    .result-card h3 {
+      margin-bottom: 15px;
+      font-size: 1.5rem;
+    }
+
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .result-item:last-child {
+      border-bottom: none;
+    }
+
+    .back-btn {
+      background: #4ECDC4;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: block;
+      margin: 20px auto;
+      transition: background 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #3db8ac;
+    }
+
+    .progress-info {
+      text-align: center;
+      color: #666;
+      margin: 10px 0;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      .number-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .target {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 Tests de Concentración</h1>
+    <p class="subtitle">Evalúa tu nivel de atención y concentración</p>
+
+    <!-- Selector de Tests -->
+    <div class="test-selector" id="testSelector">
+      <button class="test-btn" onclick="selectTest('memory')">
+        🧩 Test de Memoria
+      </button>
+      <button class="test-btn" onclick="selectTest('attention')">
+        🎯 Test de Atención
+      </button>
+      <button class="test-btn" onclick="selectTest('speed')">
+        ⚡ Test de Velocidad
+      </button>
+    </div>
+
+    <!-- Test de Memoria -->
+    <div class="test-area" id="memoryTest">
+      <div class="timer" id="memoryTimer">Tiempo: 4:00</div>
+      <div class="progress-info">Test 1 de 3</div>
+      
+      <div class="instructions">
+        <h3>📝 Instrucciones:</h3>
+        <p>Se mostrará una secuencia de números durante 3 segundos. Memorízala y luego escríbela correctamente. La secuencia se hará más larga con cada ronda. ¡Tienes 4 minutos!</p>
+      </div>
+
+      <div class="memory-display" id="memoryDisplay">
+        Presiona "Iniciar" para comenzar
+      </div>
+
+      <input type="text" class="memory-input" id="memoryInput" placeholder="Escribe la secuencia aquí" style="display: none;">
+      
+      <div class="score" id="memoryScore">Puntuación: 0</div>
+      
+      <button class="start-btn" id="memoryStartBtn" onclick="startMemoryTest()">Iniciar Test</button>
+      <button class="next-btn" id="memoryNextBtn" style="display: none;" onclick="nextTest('attention')">Siguiente Test →</button>
+    </div>
+
+    <!-- Test de Atención -->
+    <div class="test-area" id="attentionTest">
+      <div class="timer" id="attentionTimer">Tiempo: 4:00</div>
+      <div class="progress-info">Test 2 de 3</div>
+      
+      <div class="instructions">
+        <h3>🔍 Instrucciones:</h3>
+        <p>Encuentra y haz clic en los números en orden ascendente (1, 2, 3...). Los números están distribuidos aleatoriamente. ¡Sé rápido y preciso! Tienes 4 minutos.</p>
+      </div>
+
+      <div class="score" id="attentionScore">Número actual: 1 | Puntuación: 0</div>
+      
+      <div class="number-grid" id="numberGrid"></div>
+      
+      <button class="start-btn" id="attentionStartBtn" onclick="startAttentionTest()">Iniciar Test</button>
+      <button class="next-btn" id="attentionNextBtn" style="display: none;" onclick="nextTest('speed')">Siguiente Test →</button>
+    </div>
+
+    <!-- Test de Velocidad -->
+    <div class="test-area" id="speedTest">
+      <div class="timer" id="speedTimer">Tiempo: 4:00</div>
+      <div class="progress-info">Test 3 de 3</div>
+      
+      <div class="instructions">
+        <h3>⚡ Instrucciones:</h3>
+        <p>Haz clic en los círculos que aparecen en la pantalla lo más rápido posible. Aparecerán en posiciones aleatorias. ¡Tienes 4 minutos para hacer clic en tantos como puedas!</p>
+      </div>
+
+      <div class="score" id="speedScore">Puntuación: 0</div>
+      
+      <div class="speed-area" id="speedArea"></div>
+      
+      <button class="start-btn" id="speedStartBtn" onclick="startSpeedTest()">Iniciar Test</button>
+      <button class="finish-btn" id="speedFinishBtn" style="display: none;" onclick="showResults()">Ver Resultados 🎉</button>
+    </div>
+
+    <!-- Resultados -->
+    <div class="results" id="results">
+      <h2 style="text-align: center; color: #6C63FF; margin-bottom: 30px;">🎉 Resultados de tus Tests</h2>
+      
+      <div class="result-card">
+        <h3>🧩 Test de Memoria</h3>
+        <div class="result-item">
+          <span>Puntuación:</span>
+          <span id="memoryResultScore">0</span>
+        </div>
+        <div class="result-item">
+          <span>Secuencias correctas:</span>
+          <span id="memoryResultCorrect">0</span>
+        </div>
+        <div class="result-item">
+          <span>Nivel alcanzado:</span>
+          <span id="memoryResultLevel">0</span>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <h3>🎯 Test de Atención</h3>
+        <div class="result-item">
+          <span>Puntuación:</span>
+          <span id="attentionResultScore">0</span>
+        </div>
+        <div class="result-item">
+          <span>Números encontrados:</span>
+          <span id="attentionResultNumbers">0</span>
+        </div>
+        <div class="result-item">
+          <span>Precisión:</span>
+          <span id="attentionResultAccuracy">0%</span>
+        </div>
+      </div>
+
+      <div class="result-card">
+        <h3>⚡ Test de Velocidad</h3>
+        <div class="result-item">
+          <span>Puntuación:</span>
+          <span id="speedResultScore">0</span>
+        </div>
+        <div class="result-item">
+          <span>Objetivos alcanzados:</span>
+          <span id="speedResultTargets">0</span>
+        </div>
+        <div class="result-item">
+          <span>Velocidad promedio:</span>
+          <span id="speedResultAvg">0 ms</span>
+        </div>
+      </div>
+
+      <div style="background: #f0f0f0; padding: 20px; border-radius: 10px; margin: 20px 0; text-align: center;">
+        <h3 style="color: #6C63FF; margin-bottom: 10px;">Puntuación Total</h3>
+        <p style="font-size: 2.5rem; font-weight: bold; color: #6C63FF;" id="totalScore">0</p>
+      </div>
+
+      <button class="back-btn" onclick="window.location.href='index.html'">← Volver a la Página Principal</button>
+    </div>
+  </div>
+
+  <script>
+    // Variables globales
+    let currentTest = null;
+    let testResults = {
+      memory: { score: 0, correct: 0, level: 0 },
+      attention: { score: 0, numbers: 0, clicks: 0, errors: 0 },
+      speed: { score: 0, targets: 0, times: [] }
+    };
+
+    // Funciones de navegación
+    function selectTest(testName) {
+      document.getElementById('testSelector').style.display = 'none';
+      document.getElementById(testName + 'Test').classList.add('active');
+      currentTest = testName;
+    }
+
+    function nextTest(testName) {
+      document.querySelectorAll('.test-area').forEach(area => area.classList.remove('active'));
+      document.getElementById(testName + 'Test').classList.add('active');
+      currentTest = testName;
+    }
+
+    // ============================================
+    // TEST DE MEMORIA
+    // ============================================
+    let memorySequence = [];
+    let memoryLevel = 3;
+    let memoryTimer = null;
+    let memoryTimeLeft = 240; // 4 minutos
+
+    function startMemoryTest() {
+      document.getElementById('memoryStartBtn').style.display = 'none';
+      memoryTimeLeft = 240;
+      startMemoryTimer();
+      showNextMemorySequence();
+    }
+
+    function startMemoryTimer() {
+      memoryTimer = setInterval(() => {
+        memoryTimeLeft--;
+        const mins = Math.floor(memoryTimeLeft / 60);
+        const secs = memoryTimeLeft % 60;
+        document.getElementById('memoryTimer').textContent = 
+          `Tiempo: ${mins}:${secs.toString().padStart(2, '0')}`;
+        
+        if (memoryTimeLeft <= 0) {
+          endMemoryTest();
+        }
+      }, 1000);
+    }
+
+    function showNextMemorySequence() {
+      memorySequence = [];
+      for (let i = 0; i < memoryLevel; i++) {
+        memorySequence.push(Math.floor(Math.random() * 9) + 1);
+      }
+      
+      const display = document.getElementById('memoryDisplay');
+      display.textContent = memorySequence.join(' ');
+      display.style.fontSize = '3rem';
+      display.style.color = '#6C63FF';
+      
+      setTimeout(() => {
+        display.textContent = '¿Cuál era la secuencia?';
+        display.style.fontSize = '1.5rem';
+        display.style.color = '#666';
+        document.getElementById('memoryInput').style.display = 'block';
+        document.getElementById('memoryInput').value = '';
+        document.getElementById('memoryInput').focus();
+        document.getElementById('memoryInput').onkeypress = checkMemoryAnswer;
+      }, 3000);
+    }
+
+    function checkMemoryAnswer(e) {
+      if (e.key === 'Enter') {
+        const input = document.getElementById('memoryInput');
+        const userAnswer = input.value.replace(/\s/g, '').split('').map(Number);
+        const correct = JSON.stringify(userAnswer) === JSON.stringify(memorySequence);
+        
+        if (correct) {
+          testResults.memory.score += memoryLevel * 10;
+          testResults.memory.correct++;
+          testResults.memory.level = memoryLevel;
+          memoryLevel++;
+          
+          document.getElementById('memoryDisplay').textContent = '¡Correcto! ✓';
+          document.getElementById('memoryDisplay').style.color = '#95E1D3';
+        } else {
+          document.getElementById('memoryDisplay').textContent = '✗ Incorrecto. La secuencia era: ' + memorySequence.join(' ');
+          document.getElementById('memoryDisplay').style.color = '#F38181';
+        }
+        
+        document.getElementById('memoryScore').textContent = 'Puntuación: ' + testResults.memory.score;
+        input.style.display = 'none';
+        
+        setTimeout(() => {
+          if (memoryTimeLeft > 0) {
+            showNextMemorySequence();
+          }
+        }, 2000);
+      }
+    }
+
+    function endMemoryTest() {
+      clearInterval(memoryTimer);
+      document.getElementById('memoryDisplay').textContent = '¡Tiempo terminado!';
+      document.getElementById('memoryInput').style.display = 'none';
+      document.getElementById('memoryNextBtn').style.display = 'block';
+    }
+
+    // ============================================
+    // TEST DE ATENCIÓN
+    // ============================================
+    let attentionCurrentNumber = 1;
+    let attentionMaxNumber = 25;
+    let attentionTimer = null;
+    let attentionTimeLeft = 240;
+
+    function startAttentionTest() {
+      document.getElementById('attentionStartBtn').style.display = 'none';
+      attentionTimeLeft = 240;
+      attentionCurrentNumber = 1;
+      testResults.attention = { score: 0, numbers: 0, clicks: 0, errors: 0 };
+      
+      generateNumberGrid();
+      startAttentionTimer();
+    }
+
+    function startAttentionTimer() {
+      attentionTimer = setInterval(() => {
+        attentionTimeLeft--;
+        const mins = Math.floor(attentionTimeLeft / 60);
+        const secs = attentionTimeLeft % 60;
+        document.getElementById('attentionTimer').textContent = 
+          `Tiempo: ${mins}:${secs.toString().padStart(2, '0')}`;
+        
+        if (attentionTimeLeft <= 0) {
+          endAttentionTest();
+        }
+      }, 1000);
+    }
+
+    function generateNumberGrid() {
+      const grid = document.getElementById('numberGrid');
+      grid.innerHTML = '';
+      
+      const numbers = Array.from({length: attentionMaxNumber}, (_, i) => i + 1);
+      numbers.sort(() => Math.random() - 0.5);
+      
+      numbers.forEach(num => {
+        const cell = document.createElement('div');
+        cell.className = 'number-cell';
+        cell.textContent = num;
+        cell.onclick = () => checkNumber(num, cell);
+        grid.appendChild(cell);
+      });
+    }
+
+    function checkNumber(num, cell) {
+      testResults.attention.clicks++;
+      
+      if (num === attentionCurrentNumber) {
+        cell.classList.add('correct');
+        testResults.attention.score += 10;
+        testResults.attention.numbers++;
+        attentionCurrentNumber++;
+        
+        if (attentionCurrentNumber > attentionMaxNumber) {
+          endAttentionTest();
+          return;
+        }
+      } else {
+        cell.classList.add('wrong');
+        testResults.attention.errors++;
+        testResults.attention.score = Math.max(0, testResults.attention.score - 5);
+        setTimeout(() => cell.classList.remove('wrong'), 500);
+      }
+      
+      updateAttentionScore();
+    }
+
+    function updateAttentionScore() {
+      document.getElementById('attentionScore').textContent = 
+        `Número actual: ${attentionCurrentNumber} | Puntuación: ${testResults.attention.score}`;
+    }
+
+    function endAttentionTest() {
+      clearInterval(attentionTimer);
+      document.getElementById('numberGrid').style.pointerEvents = 'none';
+      document.getElementById('attentionNextBtn').style.display = 'block';
+    }
+
+    // ============================================
+    // TEST DE VELOCIDAD
+    // ============================================
+    let speedTimer = null;
+    let speedTimeLeft = 240;
+    let speedTargetInterval = null;
+    let speedCurrentTarget = null;
+    let speedTargetStartTime = 0;
+
+    function startSpeedTest() {
+      document.getElementById('speedStartBtn').style.display = 'none';
+      speedTimeLeft = 240;
+      testResults.speed = { score: 0, targets: 0, times: [] };
+      
+      startSpeedTimer();
+      spawnTarget();
+    }
+
+    function startSpeedTimer() {
+      speedTimer = setInterval(() => {
+        speedTimeLeft--;
+        const mins = Math.floor(speedTimeLeft / 60);
+        const secs = speedTimeLeft % 60;
+        document.getElementById('speedTimer').textContent = 
+          `Tiempo: ${mins}:${secs.toString().padStart(2, '0')}`;
+        
+        if (speedTimeLeft <= 0) {
+          endSpeedTest();
+        }
+      }, 1000);
+    }
+
+    function spawnTarget() {
+      if (speedTimeLeft <= 0) return;
+      
+      const area = document.getElementById('speedArea');
+      const target = document.createElement('div');
+      target.className = 'target';
+      target.textContent = '●';
+      
+      const maxX = area.clientWidth - 60;
+      const maxY = area.clientHeight - 60;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      
+      target.style.left = x + 'px';
+      target.style.top = y + 'px';
+      
+      speedTargetStartTime = Date.now();
+      speedCurrentTarget = target;
+      
+      target.onclick = () => {
+        const reactionTime = Date.now() - speedTargetStartTime;
+        testResults.speed.times.push(reactionTime);
+        testResults.speed.score += Math.max(10, 50 - Math.floor(reactionTime / 100));
+        testResults.speed.targets++;
+        
+        target.classList.add('clicked');
+        setTimeout(() => target.remove(), 300);
+        
+        document.getElementById('speedScore').textContent = 'Puntuación: ' + testResults.speed.score;
+        
+        setTimeout(() => spawnTarget(), 500);
+      };
+      
+      area.appendChild(target);
+      
+      setTimeout(() => {
+        if (target.parentElement) {
+          target.remove();
+          setTimeout(() => spawnTarget(), 200);
+        }
+      }, 2000);
+    }
+
+    function endSpeedTest() {
+      clearInterval(speedTimer);
+      document.getElementById('speedArea').innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 1.5rem; color: #666;">¡Tiempo terminado!</div>';
+      document.getElementById('speedFinishBtn').style.display = 'block';
+    }
+
+    // ============================================
+    // RESULTADOS
+    // ============================================
+    function showResults() {
+      document.querySelectorAll('.test-area').forEach(area => area.classList.remove('active'));
+      document.getElementById('results').classList.add('active');
+      
+      // Memoria
+      document.getElementById('memoryResultScore').textContent = testResults.memory.score;
+      document.getElementById('memoryResultCorrect').textContent = testResults.memory.correct;
+      document.getElementById('memoryResultLevel').textContent = testResults.memory.level;
+      
+      // Atención
+      document.getElementById('attentionResultScore').textContent = testResults.attention.score;
+      document.getElementById('attentionResultNumbers').textContent = testResults.attention.numbers;
+      const accuracy = testResults.attention.clicks > 0 
+        ? Math.round((testResults.attention.numbers / testResults.attention.clicks) * 100)
+        : 0;
+      document.getElementById('attentionResultAccuracy').textContent = accuracy + '%';
+      
+      // Velocidad
+      document.getElementById('speedResultScore').textContent = testResults.speed.score;
+      document.getElementById('speedResultTargets').textContent = testResults.speed.targets;
+      const avgTime = testResults.speed.times.length > 0
+        ? Math.round(testResults.speed.times.reduce((a, b) => a + b, 0) / testResults.speed.times.length)
+        : 0;
+      document.getElementById('speedResultAvg').textContent = avgTime + ' ms';
+      
+      // Total
+      const totalScore = testResults.memory.score + testResults.attention.score + testResults.speed.score;
+      document.getElementById('totalScore').textContent = totalScore;
+      
+      // Guardar en LocalStorage
+      const results = {
+        date: new Date().toISOString(),
+        memory: testResults.memory,
+        attention: testResults.attention,
+        speed: testResults.speed,
+        total: totalScore
+      };
+      
+      localStorage.setItem('focusflow_test_results', JSON.stringify(results));
+    }
+  </script>
+</body>
+</html>
