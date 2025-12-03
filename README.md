@@ -15,7 +15,7 @@
 - **Valentina Arias Salazar**
 
 **Curso**: Técnico en Herramientas para la Codificación de Software  
-**Institución**: [Institución Uniremington]  
+**Institución**: Institución Uniremington  
 **Fecha de Entrega**: 6 de Diciembre de 2025
 
 ---
@@ -96,22 +96,6 @@
 - ⏳ **29 Nov**: AVANCE - Presentación funcional
 - ⏳ **30 Nov - 5 Dic**: Pulido final y optimización
 - ⏳ **6 Dic**: ENTREGA FINAL 🎉
-
----
-
-## 🎨 PALETA DE COLORES
-
-```css
-/* Colores Principales */
---primary: #6C63FF;           /* Púrpura - Calma y creatividad */
---secondary: #4ECDC4;         /* Turquesa - Tranquilidad */
---accent: #FFE66D;            /* Amarillo suave - Energía positiva */
---success: #95E1D3;           /* Verde menta - Logros */
---warning: #FFB88C;           /* Naranja suave - Atención */
---danger: #F38181;            /* Rosa coral - Urgente */
-```
-
-Estos colores fueron seleccionados específicamente por sus propiedades calmantes, ideales para personas con TDAH.
 
 ---
 
