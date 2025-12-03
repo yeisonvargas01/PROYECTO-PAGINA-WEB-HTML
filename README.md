@@ -15,8 +15,8 @@
 - **Valentina Arias Salazar**
 
 **Curso**: Técnico en Herramientas para la Codificación de Software  
-**Institución**: [Nombre de la institución]  
-**Fecha de Entrega**: 6 de Diciembre de 2024
+**Institución**: [Institución Uniremington]  
+**Fecha de Entrega**: 6 de Diciembre de 2025
 
 ---
 
@@ -81,60 +81,6 @@
 - **LocalStorage** - Persistencia de datos local
 - **Web Notifications API** - Notificaciones del navegador
 - **Web Audio API** - Reproducción de sonidos
-
----
-
-## 📁 ESTRUCTURA DEL PROYECTO
-
-```
-PROYECTO-TDAH-APP/
-│
-├── 📄 index.html                    # Landing page principal
-├── 📄 app.html                      # Dashboard de la aplicación
-├── 📄 about.html                    # Información sobre TDAH
-│
-├── 📂 assets/
-│   ├── 📂 css/
-│   │   ├── variables.css           # Variables CSS (colores, fuentes)
-│   │   ├── reset.css               # Reset CSS
-│   │   ├── style.css               # Estilos principales
-│   │   ├── components.css          # Componentes reutilizables
-│   │   ├── animations.css          # Animaciones personalizadas
-│   │   └── responsive.css          # Media queries
-│   │
-│   ├── 📂 js/
-│   │   ├── main.js                 # Inicialización
-│   │   ├── alarm-system.js         # Sistema de alarmas ⭐
-│   │   ├── motivational.js         # Mensajes motivacionales ⭐
-│   │   ├── task-manager.js         # Gestor de tareas
-│   │   ├── pomodoro.js             # Temporizador Pomodoro
-│   │   ├── notifications.js        # Sistema de notificaciones
-│   │   ├── storage.js              # LocalStorage manager
-│   │   └── utils.js                # Funciones auxiliares
-│   │
-│   ├── 📂 images/
-│   │   ├── hero/                   # Imágenes hero
-│   │   ├── icons/                  # Iconos SVG
-│   │   └── illustrations/          # Ilustraciones
-│   │
-│   ├── 📂 sounds/
-│   │   ├── alarm-gentle.mp3        # Alarma suave
-│   │   ├── alarm-energetic.mp3     # Alarma energética
-│   │   ├── notification.mp3        # Sonido notificación
-│   │   └── success.mp3             # Sonido de éxito
-│   │
-│   └── 📂 libs/
-│       ├── animate.min.css         # Biblioteca de animaciones
-│       └── bootstrap.min.css       # Bootstrap (opcional)
-│
-└── 📂 docs/
-    ├── 📄 DOCUMENTACION_PROYECTO_TDAH.md    # Documentación completa
-    ├── 📄 PLAN_IMPLEMENTACION.md            # Plan de implementación
-    ├── 📄 TODO.md                           # Lista de tareas
-    ├── 📄 RESUMEN_EJECUTIVO.md              # Resumen ejecutivo
-    ├── 📄 FAQ.md                            # Preguntas frecuentes
-    └── 📄 README.md                         # Este archivo
-```
 
 ---
 
@@ -250,14 +196,6 @@ Estos colores fueron seleccionados específicamente por sus propiedades calmante
 - 📱 Asegurar diseño responsivo
 - 📚 Documentar el proceso completo
 
-### Objetivos de Aprendizaje
-- 📖 Dominar HTML5 semántico
-- 🎨 Aplicar CSS avanzado (Flexbox, Grid, Animaciones)
-- 💻 Programar en JavaScript moderno (ES6+)
-- 🔧 Utilizar frameworks profesionales
-- 🏗️ Implementar patrones de diseño
-- 👥 Trabajar en equipo efectivamente
-
 ---
 
 ## 🧪 TESTING
@@ -306,66 +244,6 @@ code .
 
 ---
 
-## 🤝 CONTRIBUCIÓN
-
-### Cómo Contribuir
-1. Revisa el archivo `TODO.md` para ver tareas pendientes
-2. Asigna una tarea a tu nombre
-3. Crea una rama para tu funcionalidad
-4. Desarrolla y prueba tu código
-5. Haz commit con mensajes descriptivos
-6. Crea un Pull Request
-
-### Convenciones de Código
-- **HTML**: Usar etiquetas semánticas
-- **CSS**: Seguir metodología BEM
-- **JavaScript**: Usar ES6+, camelCase para variables
-- **Commits**: Mensajes descriptivos en español
-
----
-
-## 📊 PROGRESO DEL PROYECTO
-
-### Estado Actual: 10% Completado
-
-```
-[██░░░░░░░░░░░░░░░░░░] 10%
-
-✅ Fase 1: Documentación (100%)
-🔄 Fase 2: Estructura Base (0%)
-⏳ Fase 3: Diseño de Páginas (0%)
-⏳ Fase 4: Funcionalidades Core (0%)
-⏳ Fase 5: Estilos y Animaciones (0%)
-⏳ Fase 6: Testing (0%)
-⏳ Fase 7: Documentación Final (0%)
-⏳ Fase 8: Deployment (0%)
-```
-
----
-
-## 🏆 HITOS
-
-- [x] **22 Nov**: Inicio del proyecto
-- [x] **22 Nov**: Documentación completa
-- [ ] **25 Nov**: Sistema de alarmas funcional
-- [ ] **27 Nov**: Gestor de tareas completo
-- [ ] **29 Nov**: AVANCE - Presentación funcional
-- [ ] **3 Dic**: Testing completo
-- [ ] **5 Dic**: Optimización final
-- [ ] **6 Dic**: ENTREGA FINAL 🎉
-
----
-
-## CONTACTO
-
-### Equipo de Desarrollo
-- **Yeison Andrés Vargas S.** - [Email/GitHub]
-- **Liseth Yamileth Nieto** - [Email/GitHub]
-- **Valentina Arias Salazar** - [Email/GitHub]
-
-
----
-
 ## 📄 LICENCIA
 
 Este proyecto es desarrollado con fines educativos para el curso de Técnico en Herramientas para la Codificación de Software.
@@ -374,9 +252,7 @@ Este proyecto es desarrollado con fines educativos para el curso de Técnico en 
 
 ## 🙏 AGRADECIMIENTOS
 
-- A nuestra profesora por la guía y apoyo
-- A las personas con TDAH que inspiraron este proyecto
-- A la comunidad de desarrolladores por los recursos compartidos
+- A nuestra profesora por la guía y apoyo.
 
 ---
 
@@ -387,15 +263,6 @@ Este proyecto es desarrollado con fines educativos para el curso de Técnico en 
 > — Albert Schweitzer
 
 Este proyecto nace del deseo de ayudar a personas con TDAH a alcanzar su máximo potencial, proporcionándoles herramientas que faciliten su concentración y organización.
-
----
-
-## 🚀 PRÓXIMOS PASOS
-
-1. **Lee el [RESUMEN_EJECUTIVO.md](RESUMEN_EJECUTIVO.md)**
-2. **Revisa el [PLAN_IMPLEMENTACION.md](PLAN_IMPLEMENTACION.md)**
-3. **Consulta el [TODO.md](TODO.md)** para ver las tareas
-4. **Comienza a desarrollar** 💻
 
 ---
 
@@ -425,19 +292,6 @@ El proyecto será exitoso si:
 
 ---
 
-## 🎉 ¡VAMOS EQUIPO!
-
-**Este es nuestro momento para brillar. Tenemos:**
-- ✅ Un plan completo
-- ✅ Documentación detallada
-- ✅ Código de ejemplo
-- ✅ Un equipo capaz
-- ✅ Tiempo suficiente
-
-
-
----
-
 <div align="center">
 
 **Hecho con 💙 por el equipo FocusFlow**
@@ -448,6 +302,6 @@ El proyecto será exitoso si:
 
 ![TDAH](https://img.shields.io/badge/TDAH-Awareness-purple)
 ![Educación](https://img.shields.io/badge/Educación-Técnica-blue)
-![2024](https://img.shields.io/badge/Año-2024-green)
+![2024](https://img.shields.io/badge/Año-2025-green)
 
 </div>
