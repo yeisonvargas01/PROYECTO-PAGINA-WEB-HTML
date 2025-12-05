@@ -392,6 +392,15 @@
 
     <!-- Resultados -->
     <div class="results" id="results">
+      <!-- Mensaje Motivacional -->
+      <div style="background: linear-gradient(135deg, #FFE66D 0%, #FFAA00 100%); padding: 25px; border-radius: 15px; margin-bottom: 30px; text-align: center; box-shadow: 0 5px 15px rgba(255, 170, 0, 0.3);">
+        <div style="font-size: 3rem; margin-bottom: 10px;">🌟</div>
+        <h3 style="color: #333; font-size: 1.5rem; margin-bottom: 10px;" id="motivationalTitle">¡Excelente trabajo!</h3>
+        <p style="color: #555; font-size: 1.1rem; line-height: 1.6;" id="motivationalMessage">
+          Has completado todos los tests con éxito. Cada esfuerzo cuenta y estás demostrando tu compromiso con mejorar tu concentración.
+        </p>
+      </div>
+
       <h2 style="text-align: center; color: #6C63FF; margin-bottom: 30px;">🎉 Resultados de tus Tests</h2>
       
       <div class="result-card">
@@ -756,6 +765,9 @@
       const totalScore = testResults.memory.score + testResults.attention.score + testResults.speed.score;
       document.getElementById('totalScore').textContent = totalScore;
       
+      // Generar mensaje motivacional basado en el rendimiento
+      generateMotivationalMessage(totalScore, accuracy);
+      
       // Guardar en LocalStorage
       const results = {
         date: new Date().toISOString(),
@@ -766,6 +778,96 @@
       };
       
       localStorage.setItem('focusflow_test_results', JSON.stringify(results));
+    }
+
+    // ============================================
+    // MENSAJES MOTIVACIONALES
+    // ============================================
+    function generateMotivationalMessage(totalScore, accuracy) {
+      const messages = {
+        excellent: {
+          titles: [
+            '¡Extraordinario! 🌟',
+            '¡Increíble desempeño! 🎉',
+            '¡Eres una estrella! ⭐',
+            '¡Sobresaliente! 🏆'
+          ],
+          messages: [
+            'Tu concentración es excepcional. Has demostrado un nivel de enfoque impresionante. ¡Sigue así!',
+            'Resultados extraordinarios. Tu dedicación y esfuerzo están dando frutos increíbles.',
+            'Has superado todas las expectativas. Tu capacidad de concentración es admirable.',
+            'Excelente trabajo. Estás en el camino correcto hacia una concentración excepcional.'
+          ]
+        },
+        good: {
+          titles: [
+            '¡Muy bien hecho! 💪',
+            '¡Buen trabajo! 👏',
+            '¡Excelente esfuerzo! 🌈',
+            '¡Vas por buen camino! 🚀'
+          ],
+          messages: [
+            'Has completado los tests con éxito. Tu concentración está mejorando notablemente.',
+            'Buen desempeño. Cada práctica te acerca más a tus objetivos de concentración.',
+            'Resultados positivos. Continúa practicando y verás mejoras constantes.',
+            'Estás progresando bien. Tu esfuerzo y dedicación son evidentes.'
+          ]
+        },
+        average: {
+          titles: [
+            '¡Buen intento! 💙',
+            '¡Sigue adelante! 🌱',
+            '¡Cada paso cuenta! 🎯',
+            '¡Vas mejorando! 📈'
+          ],
+          messages: [
+            'Has completado todos los tests. Recuerda que la práctica constante es clave para mejorar.',
+            'Buen esfuerzo. Con práctica regular, tu concentración seguirá mejorando.',
+            'Cada intento es un paso hacia adelante. No te desanimes, sigue practicando.',
+            'Resultados prometedores. La constancia te llevará a mejores resultados.'
+          ]
+        },
+        needsImprovement: {
+          titles: [
+            '¡No te rindas! 💪',
+            '¡Sigue intentando! 🌟',
+            '¡Tú puedes! 🎈',
+            '¡Ánimo! 🌻'
+          ],
+          messages: [
+            'Has dado el primer paso al completar los tests. La práctica diaria te ayudará a mejorar significativamente.',
+            'Cada intento es valioso. Recuerda que mejorar la concentración es un proceso gradual.',
+            'No te desanimes. Con técnicas adecuadas y práctica constante, verás grandes mejoras.',
+            'Has mostrado valentía al intentarlo. Sigue practicando y los resultados llegarán.'
+          ]
+        }
+      };
+
+      let category;
+      if (totalScore >= 600) {
+        category = 'excellent';
+      } else if (totalScore >= 400) {
+        category = 'good';
+      } else if (totalScore >= 200) {
+        category = 'average';
+      } else {
+        category = 'needsImprovement';
+      }
+
+      const selectedCategory = messages[category];
+      const randomTitle = selectedCategory.titles[Math.floor(Math.random() * selectedCategory.titles.length)];
+      const randomMessage = selectedCategory.messages[Math.floor(Math.random() * selectedCategory.messages.length)];
+
+      // Agregar consejo adicional basado en precisión
+      let additionalTip = '';
+      if (accuracy < 50) {
+        additionalTip = ' Consejo: Tómate tu tiempo para pensar antes de actuar. La precisión es tan importante como la velocidad.';
+      } else if (accuracy >= 80) {
+        additionalTip = ' ¡Tu precisión es excelente! Mantén ese nivel de atención al detalle.';
+      }
+
+      document.getElementById('motivationalTitle').textContent = randomTitle;
+      document.getElementById('motivationalMessage').textContent = randomMessage + additionalTip;
     }
   </script>
 </body>

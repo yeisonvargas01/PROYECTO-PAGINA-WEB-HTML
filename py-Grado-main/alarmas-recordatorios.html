@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alarmas y Recordatorios - FocusFlow</title>
+  <link rel="shortcut icon" href="./brain-favicon.svg" type="image/svg+xml">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #6C63FF;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .card-icon {
+      font-size: 40px;
+      color: #6C63FF;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      color: #333;
+      font-weight: 600;
+    }
+
+    .alarm-item, .reminder-item {
+      background: #f8f8f8;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid #6C63FF;
+    }
+
+    .alarm-time {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #6C63FF;
+      margin-bottom: 10px;
+    }
+
+    .alarm-message {
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .alarm-details {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .detail-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .badge-sound {
+      background: #FFE66D;
+      color: #333;
+    }
+
+    .badge-repeat {
+      background: #95E1D3;
+      color: #333;
+    }
+
+    .badge-active {
+      background: #4ECDC4;
+      color: white;
+    }
+
+    .alarm-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: #6C63FF;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5a52d5;
+      transform: translateY(-2px);
+    }
+
+    .btn-success {
+      background: #95E1D3;
+      color: #333;
+    }
+
+    .btn-success:hover {
+      background: #7dd4c4;
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: #F38181;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #e74c3c;
+      transform: translateY(-2px);
+    }
+
+    .btn-back {
+      background: #4ECDC4;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      margin: 20px auto;
+      display: block;
+      width: fit-content;
+    }
+
+    .btn-back:hover {
+      background: #3db8ac;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      color: #333;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: #6C63FF;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>⏰ Alarmas y Recordatorios</h1>
+      <p class="subtitle">Gestiona tus alarmas personalizadas y recordatorios recurrentes</p>
+    </div>
+
+    <div class="grid">
+      <!-- ALARMAS PERSONALIZABLES -->
+      <div class="card">
+        <div class="card-header">
+          <ion-icon name="alarm-outline" class="card-icon"></ion-icon>
+          <h2 class="card-title">Alarmas Personalizables</h2>
+        </div>
+
+        <!-- Alarma de Ejemplo 1 -->
+        <div class="alarm-item">
+          <div class="alarm-time">08:00 AM</div>
+          <div class="alarm-message">🌅 ¡Buenos días! Es hora de comenzar tu día con energía positiva</div>
+          <div class="alarm-details">
+            <span class="detail-badge badge-sound">
+              <ion-icon name="musical-notes-outline"></ion-icon>
+              Sonido Suave
+            </span>
+            <span class="detail-badge badge-repeat">
+              <ion-icon name="repeat-outline"></ion-icon>
+              Diario
+            </span>
+            <span class="detail-badge badge-active">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              Activa
+            </span>
+          </div>
+          <div class="alarm-actions">
+            <button class="btn btn-success" onclick="testAlarm('morning')">
+              <ion-icon name="play-outline"></ion-icon>
+              Probar
+            </button>
+            <button class="btn btn-primary" onclick="editAlarm('morning')">
+              <ion-icon name="create-outline"></ion-icon>
+              Editar
+            </button>
+            <button class="btn btn-danger" onclick="deleteAlarm('morning')">
+              <ion-icon name="trash-outline"></ion-icon>
+              Eliminar
+            </button>
+          </div>
+        </div>
+
+        <!-- Alarma de Ejemplo 2 -->
+        <div class="alarm-item">
+          <div class="alarm-time">02:00 PM</div>
+          <div class="alarm-message">☀️ Momento de tomar un descanso y estirarte un poco</div>
+          <div class="alarm-details">
+            <span class="detail-badge badge-sound">
+              <ion-icon name="musical-notes-outline"></ion-icon>
+              Campana
+            </span>
+            <span class="detail-badge badge-repeat">
+              <ion-icon name="repeat-outline"></ion-icon>
+              Lun-Vie
+            </span>
+            <span class="detail-badge badge-active">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              Activa
+            </span>
+          </div>
+          <div class="alarm-actions">
+            <button class="btn btn-success" onclick="testAlarm('afternoon')">
+              <ion-icon name="play-outline"></ion-icon>
+              Probar
+            </button>
+            <button class="btn btn-primary" onclick="editAlarm('afternoon')">
+              <ion-icon name="create-outline"></ion-icon>
+              Editar
+            </button>
+            <button class="btn btn-danger" onclick="deleteAlarm('afternoon')">
+              <ion-icon name="trash-outline"></ion-icon>
+              Eliminar
+            </button>
+          </div>
+        </div>
+
+        <!-- Botón para crear nueva alarma -->
+        <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="createNewAlarm()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          Crear Nueva Alarma
+        </button>
+      </div>
+
+      <!-- RECORDATORIOS RECURRENTES -->
+      <div class="card">
+        <div class="card-header">
+          <ion-icon name="repeat-outline" class="card-icon"></ion-icon>
+          <h2 class="card-title">Recordatorios Recurrentes</h2>
+        </div>
+
+        <!-- Recordatorio 1 -->
+        <div class="reminder-item">
+          <div class="alarm-time">
+            <ion-icon name="water-outline"></ion-icon>
+            Cada 2 horas
+          </div>
+          <div class="alarm-message">💧 Recuerda hidratarte - Toma un vaso de agua</div>
+          <div class="alarm-details">
+            <span class="detail-badge badge-repeat">
+              <ion-icon name="time-outline"></ion-icon>
+              09:00 - 21:00
+            </span>
+            <span class="detail-badge badge-active">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              Activo
+            </span>
+          </div>
+          <div class="alarm-actions">
+            <button class="btn btn-success" onclick="testReminder('water')">
+              <ion-icon name="play-outline"></ion-icon>
+              Probar
+            </button>
+            <button class="btn btn-primary" onclick="editReminder('water')">
+              <ion-icon name="create-outline"></ion-icon>
+              Editar
+            </button>
+            <button class="btn btn-danger" onclick="deleteReminder('water')">
+              <ion-icon name="trash-outline"></ion-icon>
+              Eliminar
+            </button>
+          </div>
+        </div>
+
+        <!-- Recordatorio 2 -->
+        <div class="reminder-item">
+          <div class="alarm-time">
+            <ion-icon name="fitness-outline"></ion-icon>
+            Cada 4 horas
+          </div>
+          <div class="alarm-message">🧘 Hora de estirarte - Levántate y muévete 5 minutos</div>
+          <div class="alarm-details">
+            <span class="detail-badge badge-repeat">
+              <ion-icon name="time-outline"></ion-icon>
+              10:00 - 18:00
+            </span>
+            <span class="detail-badge badge-active">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              Activo
+            </span>
+          </div>
+          <div class="alarm-actions">
+            <button class="btn btn-success" onclick="testReminder('stretch')">
+              <ion-icon name="play-outline"></ion-icon>
+              Probar
+            </button>
+            <button class="btn btn-primary" onclick="editReminder('stretch')">
+              <ion-icon name="create-outline"></ion-icon>
+              Editar
+            </button>
+            <button class="btn btn-danger" onclick="deleteReminder('stretch')">
+              <ion-icon name="trash-outline"></ion-icon>
+              Eliminar
+            </button>
+          </div>
+        </div>
+
+        <!-- Botón para crear nuevo recordatorio -->
+        <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="createNewReminder()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          Crear Nuevo Recordatorio
+        </button>
+      </div>
+    </div>
+
+    <button class="btn btn-back" onclick="window.location.href='index.html'">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Volver a la Página Principal
+    </button>
+  </div>
+
+  <script>
+    // Función para probar alarma
+    function testAlarm(type) {
+      const messages = {
+        morning: '🌅 ¡Buenos días! Es hora de comenzar tu día con energía positiva',
+        afternoon: '☀️ Momento de tomar un descanso y estirarte un poco'
+      };
+
+      showNotification(messages[type] || 'Alarma de prueba', 'success');
+      playSound();
+    }
+
+    // Función para probar recordatorio
+    function testReminder(type) {
+      const messages = {
+        water: '💧 Recuerda hidratarte - Toma un vaso de agua',
+        stretch: '🧘 Hora de estirarte - Levántate y muévete 5 minutos'
+      };
+
+      showNotification(messages[type] || 'Recordatorio de prueba', 'success');
+      playSound();
+    }
+
+    // Función para editar alarma
+    function editAlarm(type) {
+      alert(`Editando alarma: ${type}\n\nEsta funcionalidad se implementará en la versión completa.`);
+    }
+
+    // Función para eliminar alarma
+    function deleteAlarm(type) {
+      if (confirm('¿Estás seguro de eliminar esta alarma?')) {
+        showNotification('Alarma eliminada correctamente', 'success');
+      }
+    }
+
+    // Función para editar recordatorio
+    function editReminder(type) {
+      alert(`Editando recordatorio: ${type}\n\nEsta funcionalidad se implementará en la versión completa.`);
+    }
+
+    // Función para eliminar recordatorio
+    function deleteReminder(type) {
+      if (confirm('¿Estás seguro de eliminar este recordatorio?')) {
+        showNotification('Recordatorio eliminado correctamente', 'success');
+      }
+    }
+
+    // Función para crear nueva alarma
+    function createNewAlarm() {
+      alert('Formulario de creación de alarma\n\nEsta funcionalidad se implementará en la versión completa.\n\nPodrás configurar:\n- Hora\n- Mensaje personalizado\n- Sonido\n- Repetición (diaria, semanal, personalizada)');
+    }
+
+    // Función para crear nuevo recordatorio
+    function createNewReminder() {
+      alert('Formulario de creación de recordatorio\n\nEsta funcionalidad se implementará en la versión completa.\n\nPodrás configurar:\n- Intervalo de tiempo\n- Mensaje personalizado\n- Horario activo\n- Días de la semana');
+    }
+
+    // Función para mostrar notificación
+    function showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 20px 25px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        z-index: 9999;
+        border-left: 4px solid ${type === 'success' ? '#95E1D3' : '#F38181'};
+        animation: slideIn 0.3s ease;
+      `;
+
+      notification.innerHTML = `
+        <ion-icon name="${type === 'success' ? 'checkmark-circle' : 'alert-circle'}-outline" style="font-size: 30px; color: ${type === 'success' ? '#95E1D3' : '#F38181'};"></ion-icon>
+        <span style="color: #333; font-weight: 500;">${message}</span>
+      `;
+
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => notification.remove(), 300);
+      }, 3000);
+    }
+
+    // Función para reproducir sonido
+    function playSound() {
+      // Crear un beep simple usando Web Audio API
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+
+      oscillator.frequency.value = 800;
+      oscillator.type = 'sine';
+
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.5);
+    }
+
+    // Agregar estilos de animación
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideIn {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideOut {
+        from {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

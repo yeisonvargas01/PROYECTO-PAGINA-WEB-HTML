@@ -291,7 +291,7 @@ if (registrationForm) {
       phone,
       goal,
       message,
-      registrationDate: new Date().toISOString(),
+      registeredAt: new Date().toISOString(),
       active: true
     };
 
@@ -312,8 +312,58 @@ if (registrationForm) {
 
       // Inicializar datos del usuario
       initializeUserData(userData.id);
+
+      // Mostrar modal de éxito y redirigir
+      showSuccessModal(userData.name);
     }
   });
+}
+
+/**
+ * Mostrar modal de registro exitoso
+ */
+function showSuccessModal(userName) {
+  // Crear modal
+  const modal = document.createElement('div');
+  modal.className = 'success-modal';
+  modal.innerHTML = `
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-icon">
+        <ion-icon name="checkmark-circle"></ion-icon>
+      </div>
+      <h2>¡Registro Exitoso!</h2>
+      <p>Bienvenido/a <strong>${userName}</strong> a FocusFlow</p>
+      <p>Tu cuenta ha sido creada correctamente.</p>
+      <div class="modal-actions">
+        <button class="btn-modal btn-primary" onclick="closeSuccessModal()">Continuar</button>
+        <button class="btn-modal btn-secondary" onclick="viewRegisteredUsers()">Ver Usuarios Registrados</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  // Animar entrada
+  setTimeout(() => modal.classList.add('show'), 10);
+}
+
+/**
+ * Cerrar modal de éxito
+ */
+function closeSuccessModal() {
+  const modal = document.querySelector('.success-modal');
+  if (modal) {
+    modal.classList.remove('show');
+    setTimeout(() => modal.remove(), 300);
+  }
+}
+
+/**
+ * Ver usuarios registrados
+ */
+function viewRegisteredUsers() {
+  window.location.href = 'usuarios-registrados.html';
 }
 
 /**

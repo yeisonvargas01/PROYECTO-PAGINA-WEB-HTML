@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios Registrados - FocusFlow</title>
+  <link rel="shortcut icon" href="./brain-favicon.svg" type="image/svg+xml">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      color: #6C63FF;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 2.5rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, #6C63FF, #4ECDC4);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 30px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    thead {
+      background: #6C63FF;
+      color: white;
+    }
+
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+    }
+
+    tbody tr:hover {
+      background: #f5f5f5;
+    }
+
+    .objetivo-badge {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .objetivo-concentration { background: #FFE66D; color: #333; }
+    .objetivo-tasks { background: #95E1D3; color: #333; }
+    .objetivo-time { background: #F38181; color: white; }
+    .objetivo-motivation { background: #4ECDC4; color: white; }
+    .objetivo-all { background: #6C63FF; color: white; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #6C63FF;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5a52d5;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #4ECDC4;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #3db8ac;
+      transform: translateY(-2px);
+    }
+
+    .btn-danger {
+      background: #F38181;
+      color: white;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+    }
+
+    .btn-danger:hover {
+      background: #e74c3c;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+
+    .empty-state ion-icon {
+      font-size: 80px;
+      color: #ddd;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      th, td {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>👥 Usuarios Registrados</h1>
+    <p class="subtitle">Panel de administración de usuarios de FocusFlow</p>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-number" id="totalUsers">0</div>
+        <div class="stat-label">Total Usuarios</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="todayUsers">0</div>
+        <div class="stat-label">Hoy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="weekUsers">0</div>
+        <div class="stat-label">Esta Semana</div>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table id="usersTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Objetivo</th>
+            <th>Fecha Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+          <!-- Se llenará dinámicamente -->
+        </tbody>
+      </table>
+
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <ion-icon name="people-outline"></ion-icon>
+        <h3>No hay usuarios registrados aún</h3>
+        <p>Los usuarios que se registren aparecerán aquí</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a href="index.html" class="btn btn-primary">← Volver a Inicio</a>
+      <button class="btn btn-secondary" onclick="exportToCSV()">📥 Exportar CSV</button>
+      <button class="btn btn-danger" onclick="clearAllUsers()">🗑️ Limpiar Todo</button>
+    </div>
+  </div>
+
+  <script>
+    // Cargar usuarios desde LocalStorage
+    function loadUsers() {
+      const users = JSON.parse(localStorage.getItem('focusflow_users') || '[]');
+      const tbody = document.getElementById('usersTableBody');
+      const emptyState = document.getElementById('emptyState');
+      const table = document.getElementById('usersTable');
+
+      if (users.length === 0) {
+        table.style.display = 'none';
+        emptyState.style.display = 'block';
+        return;
+      }
+
+      table.style.display = 'table';
+      emptyState.style.display = 'none';
+
+      tbody.innerHTML = '';
+
+      users.forEach((user, index) => {
+        const row = document.createElement('tr');
+        
+        const objetivoClass = {
+          'concentration': 'objetivo-concentration',
+          'tasks': 'objetivo-tasks',
+          'time': 'objetivo-time',
+          'motivation': 'objetivo-motivation',
+          'all': 'objetivo-all'
+        }[user.goal] || 'objetivo-all';
+
+        const objetivoText = {
+          'concentration': 'Concentración',
+          'tasks': 'Tareas',
+          'time': 'Tiempo',
+          'motivation': 'Motivación',
+          'all': 'Todos'
+        }[user.goal] || user.goal;
+
+        const date = new Date(user.registeredAt);
+        const formattedDate = date.toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>${user.phone}</td>
+          <td><span class="objetivo-badge ${objetivoClass}">${objetivoText}</span></td>
+          <td>${formattedDate}</td>
+          <td>
+            <button class="btn btn-danger" onclick="deleteUser(${index})">Eliminar</button>
+          </td>
+        `;
+
+        tbody.appendChild(row);
+      });
+
+      // Actualizar estadísticas
+      updateStats(users);
+    }
+
+    function updateStats(users) {
+      document.getElementById('totalUsers').textContent = users.length;
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      const todayUsers = users.filter(user => {
+        const userDate = new Date(user.registeredAt);
+        userDate.setHours(0, 0, 0, 0);
+        return userDate.getTime() === today.getTime();
+      }).length;
+
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+
+      const weekUsers = users.filter(user => {
+        return new Date(user.registeredAt) >= weekAgo;
+      }).length;
+
+      document.getElementById('todayUsers').textContent = todayUsers;
+      document.getElementById('weekUsers').textContent = weekUsers;
+    }
+
+    function deleteUser(index) {
+      if (confirm('¿Estás seguro de eliminar este usuario?')) {
+        const users = JSON.parse(localStorage.getItem('focusflow_users') || '[]');
+        users.splice(index, 1);
+        localStorage.setItem('focusflow_users', JSON.stringify(users));
+        loadUsers();
+      }
+    }
+
+    function clearAllUsers() {
+      if (confirm('¿Estás seguro de eliminar TODOS los usuarios? Esta acción no se puede deshacer.')) {
+        localStorage.removeItem('focusflow_users');
+        loadUsers();
+      }
+    }
+
+    function exportToCSV() {
+      const users = JSON.parse(localStorage.getItem('focusflow_users') || '[]');
+      
+      if (users.length === 0) {
+        alert('No hay usuarios para exportar');
+        return;
+      }
+
+      let csv = 'Nombre,Email,Teléfono,Objetivo,Mensaje,Fecha Registro\n';
+      
+      users.forEach(user => {
+        const date = new Date(user.registeredAt).toLocaleString('es-ES');
+        csv += `"${user.name}","${user.email}","${user.phone}","${user.goal}","${user.message || ''}","${date}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      
+      link.setAttribute('href', url);
+      link.setAttribute('download', `focusflow_usuarios_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Cargar usuarios al iniciar
+    loadUsers();
+
+    // Recargar cada 5 segundos por si hay cambios
+    setInterval(loadUsers, 5000);
+  </script>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
