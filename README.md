@@ -3,7 +3,7 @@
 ## FocusFlow - Tu Asistente Personal para el Enfoque
 
 ![Estado del Proyecto](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow)
-![Progreso](https://img.shields.io/badge/Progreso-10%25-blue)
+![Progreso](https://img.shields.io/badge/Progreso-100%25-blue)
 ![Entrega](https://img.shields.io/badge/Entrega-6%20Diciembre-red)
 
 ---
@@ -22,13 +22,7 @@
 
 ## 📋 DESCRIPCIÓN DEL PROYECTO
 
-**FocusFlow** es una aplicación web diseñada específicamente para ayudar a personas con TDAH (Trastorno por Déficit de Atención e Hiperactividad) a:
-
-- ⏰ **Mantener el enfoque** mediante alarmas inteligentes
-- 💪 **Recibir motivación** con mensajes personalizados
-- ✅ **Gestionar tareas** de manera efectiva
-- ⏱️ **Mejorar la productividad** con la técnica Pomodoro
-- 🎯 **Alcanzar sus metas** paso a paso
+**FocusFlow** FocusFlow es una plataforma web orientada a la optimización del rendimiento cognitivo en personas con TDAH. La aplicación integra un sistema de recordatorio inteligente, un módulo de gestión de tareas, herramientas de motivación personalizada y una simulación para estimular la concentración y atención durante unas actividades estrategicas.
 
 ---
 
@@ -108,13 +102,13 @@
 - ✅ Desarrollar una solución útil para personas con TDAH
 
 ### Objetivos Específicos
-- ⏰ Implementar sistema de alarmas con notificaciones
-- 💬 Crear mensajes motivacionales contextuales
-- ✅ Desarrollar gestor de tareas intuitivo
-- ⏱️ Integrar temporizador Pomodoro
-- 🎨 Diseñar interfaz accesible y atractiva
-- 📱 Asegurar diseño responsivo
-- 📚 Documentar el proceso completo
+-  Implementar sistema de alarmas con notificaciones
+-  Crear mensajes motivacionales contextuales
+-  Desarrollar gestor de tareas intuitivo
+-  Integrar temporizador Pomodoro
+-  Diseñar interfaz accesible y atractiva
+-  Asegurar diseño responsivo
+-  Documentar el proceso completo
 
 ---
 
