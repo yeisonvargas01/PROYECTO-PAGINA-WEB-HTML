@@ -1016,19 +1016,16 @@ a.contact-link:is(:hover, :focus) { color: var(--white); }
    */
 
   .footer .email-field {
-    margin-block-end: 0;
+    margin-block-end: 15px;
     text-align: left;
     font-size: var(--fs-18);
-    padding: 10px 15px;
-    padding-inline-end: 210px;
+    padding: 15px 20px;
   }
 
   .footer .btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    bottom: 15px;
-    width: max-content;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
   }
 
   .footer-link-box { grid-template-columns: 1fr 1fr; }

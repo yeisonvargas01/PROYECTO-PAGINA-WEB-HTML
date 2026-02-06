@@ -337,7 +337,6 @@ function showSuccessModal(userName) {
       <p>Tu cuenta ha sido creada correctamente.</p>
       <div class="modal-actions">
         <button class="btn-modal btn-primary" onclick="closeSuccessModal()">Continuar</button>
-        <button class="btn-modal btn-secondary" onclick="viewRegisteredUsers()">Ver Usuarios Registrados</button>
       </div>
     </div>
   `;
@@ -357,13 +356,6 @@ function closeSuccessModal() {
     modal.classList.remove('show');
     setTimeout(() => modal.remove(), 300);
   }
-}
-
-/**
- * Ver usuarios registrados
- */
-function viewRegisteredUsers() {
-  window.location.href = 'usuarios-registrados.html';
 }
 
 /**

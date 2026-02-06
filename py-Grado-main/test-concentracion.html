@@ -332,6 +332,13 @@
       </button>
     </div>
 
+    <!-- Botón para volver a la página principal -->
+    <div style="text-align: center; margin-top: 20px;">
+      <button class="back-btn" onclick="window.location.href='index.html'">
+        ← Volver a la Página Principal
+      </button>
+    </div>
+
     <!-- Test de Memoria -->
     <div class="test-area" id="memoryTest">
       <div class="timer" id="memoryTimer">Tiempo: 4:00</div>
@@ -352,6 +359,7 @@
       
       <button class="start-btn" id="memoryStartBtn" onclick="startMemoryTest()">Iniciar Test</button>
       <button class="next-btn" id="memoryNextBtn" style="display: none;" onclick="nextTest('attention')">Siguiente Test →</button>
+      <button class="back-btn" onclick="backToTestSelector()" style="margin-top: 10px;">← Regresar a Selección de Tests</button>
     </div>
 
     <!-- Test de Atención -->
@@ -370,6 +378,7 @@
       
       <button class="start-btn" id="attentionStartBtn" onclick="startAttentionTest()">Iniciar Test</button>
       <button class="next-btn" id="attentionNextBtn" style="display: none;" onclick="nextTest('speed')">Siguiente Test →</button>
+      <button class="back-btn" onclick="backToTestSelector()" style="margin-top: 10px;">← Regresar a Selección de Tests</button>
     </div>
 
     <!-- Test de Velocidad -->
@@ -388,6 +397,7 @@
       
       <button class="start-btn" id="speedStartBtn" onclick="startSpeedTest()">Iniciar Test</button>
       <button class="finish-btn" id="speedFinishBtn" style="display: none;" onclick="showResults()">Ver Resultados 🎉</button>
+      <button class="back-btn" onclick="backToTestSelector()" style="margin-top: 10px;">← Regresar a Selección de Tests</button>
     </div>
 
     <!-- Resultados -->
@@ -480,6 +490,22 @@
       document.querySelectorAll('.test-area').forEach(area => area.classList.remove('active'));
       document.getElementById(testName + 'Test').classList.add('active');
       currentTest = testName;
+    }
+
+    function backToTestSelector() {
+      // Ocultar todos los tests
+      document.querySelectorAll('.test-area').forEach(area => area.classList.remove('active'));
+      
+      // Mostrar selector de tests
+      document.getElementById('testSelector').style.display = 'grid';
+      
+      // Limpiar timers si están activos
+      if (memoryTimer) clearInterval(memoryTimer);
+      if (attentionTimer) clearInterval(attentionTimer);
+      if (speedTimer) clearInterval(speedTimer);
+      
+      // Resetear estados
+      currentTest = null;
     }
 
     // ============================================
