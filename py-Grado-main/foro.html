@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro de Discusión</title>
+    
+    <style>
+   /* 
+   @Yeison, @Valentina: 
+   He actualizado la tipografía a 'Segoe UI' para darle un toque más moderno 
+   y limpio, tal como solicitamos en el rediseño.
+*/
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 20px;
+    /* Color de fondo basado en el tono lila suave de la paleta */
+    background-color: #dcd6f7; 
+}
+
+/* 
+   @Valentina: 
+   He cambiado el color del título a un morado oscuro para que contraste 
+   bien con el fondo pastel.
+*/
+h1, h2 {
+    color: #4b3b6e; /* Morado oscuro */
+    text-align: center;
+}
+
+form {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px; /* Bordes más redondeados */
+    /* Sombra suave con tono violeta */
+    box-shadow: 0 4px 15px rgba(103, 58, 183, 0.2); 
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: bold;
+    color: #5c4b85; /* Texto de etiquetas en tono violeta medio */
+    display: block;
+    margin-top: 10px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 2px solid #a6b1e1; /* Borde azul pastel */
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #fcfcff;
+    font-family: inherit;
+}
+
+input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: #8971d0; /* Cambio de color al escribir (Morado activo) */
+}
+
+/* 
+   @Yeison: 
+   Aquí apliqué el color principal de la paleta al botón. 
+   Es un degradado para que resalte más.
+*/
+input[type="submit"] {
+    background: linear-gradient(to right, #8971d0, #4b3b6e);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px; /* Botón estilo píldora */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 15px;
+    transition: transform 0.2s;
+}
+
+input[type="submit"]:hover {
+    transform: scale(1.02); /* Efecto de crecimiento suave */
+    opacity: 0.9;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+/* --- ESTILOS PARA LOS COMENTARIOS DEL FORO --- */
+
+.comentarios-previos {
+    margin-top: 40px;
+    border-top: 2px dashed #a6b1e1;
+    padding-top: 20px;
+}
+
+.comentario {
+    background-color: #f4eeff; /* Fondo lila muy pálido */
+    border-left: 5px solid #8971d0; /* Borde lateral decorativo */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.usuario {
+    font-weight: bold;
+    color: #424874; /* Azul oscuro para el nombre de usuario */
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Botón para volver a la página principal -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="index.html" style="display: inline-block; background: linear-gradient(to right, #8971d0, #4b3b6e); color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; transition: transform 0.2s;">
+                ← Volver a FocusFlow
+            </a>
+        </div>
+
+        <!-- Título del Foro -->
+        <h1>Publicar nuevo tema</h1>
+        
+        <!-- Formulario con evento para mostrar mensaje -->
+        <!-- @Valentina: He configurado el formulario para que no recargue la página y ejecute la alerta JS -->
+        <form onsubmit="confirmarPublicacion(event)">
+            
+            <label for="titulo">Título del tema:</label>
+            <input type="text" id="titulo" name="titulo" placeholder="Ej: ¿Cuál estrategia te ha funcionado?" required>
+
+            <label for="autor">Tu Nombre:</label>
+            <input type="text" id="autor" name="autor" placeholder="Tu nombre..." required>
+
+            <label for="mensaje">Contenido:</label>
+            <textarea id="mensaje" name="mensaje" style="height:100px" placeholder="Escribe tu opinión aquí..." required></textarea>
+
+            <input type="submit" value="Publicar en el Foro">
+        </form>
+
+        
+        <!-- @Yeison: Aquí agregué la sección de historial para que parezca un foro activo -->
+        <div class="comentarios-previos">
+            <h2>Discusiones recientes</h2>
+            
+            <div class="comentario">
+                <div class="usuario">Usuario: Santi_Explorer</div>
+                <p>Hola a todos. Llevo meses sospechando que tengo TDAH. Me cuesta muchísimo empezar tareas simples, es como si tuviera una "pared invisible" en mi cerebro aunque quiera hacerlo. ¿A alguien más le pasa esta parálisis?</p>
+            </div>
+
+            <div class="comentario">
+                <div class="usuario">Usuario: Elena_Focus</div>
+                <p>¡Te entiendo perfectamente, Santi! A mí me diagnosticaron hace un año. Lo que me ayuda es el "Body Doubling" (trabajar con alguien al lado en silencio). Si estoy sola, pongo ruido marrón (Brown Noise) para calmar mi mente. ¡Ánimo!</p>
+            </div>
+        </div>
+            <div class="comentario">
+                <div class="usuario">Usuario: MariaGomez88</div>
+                <p>¡Me encantan los nuevos colores de la página! Se ven muy relajantes me ayuda concentrarme.</p>
+            </div>
+
+            <div class="comentario">
+                <div class="usuario">Usuario: Carlos_Dev</div>
+                <p>Hablando de colores es mejor la luz blanca o calida para estudiar?.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT PARA EL MENSAJE DE CONFIRMACIÓN -->
+    <script>
+        function confirmarPublicacion(event) {
+            event.preventDefault(); // Evita que la página se recargue
+            // Mensaje de alerta solicitado
+            alert("¡Tu publicación ha sido guardada exitosamente en el foro!");
+            
+            // Opcional: Limpiar el formulario después de enviar
+            document.querySelector("form").reset();
+        }
+    </script>
+
+</body>
+</html>
